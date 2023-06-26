@@ -49,7 +49,7 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Diabetes Prediction API")
 auth_handler = AuthHandler()
 BASEDIR = os.path.dirname(__file__)
-app.mount("/static", StaticFiles(directory=BASEDIR + "/"), name="static")
+app.mount("/static", StaticFiles(directory=BASEDIR + "/statics/"), name="static")
 
 origins = [
 "http://192.168.43.177:8000"
@@ -114,7 +114,7 @@ async def login(userL: Annotated[OAuth2PasswordRequestForm, Depends()],db: Sessi
 
 async def handle_file_upload(file: UploadFile) -> str:
     _, ext = os.path.splitext(file.filename)
-    img_dir = os.path.join(BASEDIR, 'static/')
+    img_dir = os.path.join(BASEDIR, 'statics/')
     if not os.path.exists(img_dir):
         os.makedirs(img_dir)
     content = await file.read()
