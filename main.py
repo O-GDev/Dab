@@ -124,6 +124,7 @@ async def handle_file_upload(file: UploadFile) -> str:
     async with aiofiles.open(os.path.join(img_dir, file_name), mode='wb') as f:
         await f.write(content)
 
+    print(img_dir)
     return file_name
 
 @app.put("/profile_picture", status_code=status.HTTP_200_OK)
