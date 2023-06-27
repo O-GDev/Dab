@@ -49,7 +49,7 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Diabetes Prediction API")
 auth_handler = AuthHandler()
 BASEDIR = os.path.dirname(__file__)
-app.mount("/static", StaticFiles(directory=BASEDIR + "/statics/"), name="static")
+app.mount("/statics", StaticFiles(directory=BASEDIR + "/statics/"), name="statics")
 
 origins = [
 "http://192.168.43.177:8000"
