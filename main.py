@@ -140,9 +140,9 @@ async def update_profile(image: UploadFile = File(...),db: Session = Depends(get
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
                             detail=f"Empty Field") 
     else:
-        user.profile_pics = image
+        user.profile_pics = Images
         db.commit()
-        return {"status":status.HTTP_200_OK,"user_details": user.profile_pics}
+        return {"status":status.HTTP_200_OK,"profile_pics": user.profile_pics}
         
 @app.put("/profiles")
 async def update_profiles_details(UserP:schemas.Profile,db: Session = Depends(get_db),get_current_user: int = Depends(oauth2.get_current_user)):
