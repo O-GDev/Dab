@@ -112,35 +112,35 @@ async def login(userL: Annotated[OAuth2PasswordRequestForm, Depends()],db: Sessi
     # return{db_user_.password,userL.password}
 #     # return {"message":"Signin Successful"}
 
-async def handle_file_upload(file: UploadFile) -> str:
-    _, ext = os.path.splitext(file.filename)
-    img_dir = os.path.join(BASEDIR, 'statics/')
-    if not os.path.exists(img_dir):
-        os.makedirs(img_dir)
-    content = await file.read()
-    if file.content_type not in ['image/jpeg', 'image/png']:
-        raise HTTPException(status_code=406, detail="Only .jpeg or .png  files allowed")
-    file_name = f'{uuid.uuid4().hex}{ext}'
-    async with aiofiles.open(os.path.join(img_dir, file_name), mode='wb') as f:
-        await f.write(content)
+# async def handle_file_upload(file: UploadFile) -> str:
+#     _, ext = os.path.splitext(file.filename)
+#     img_dir = os.path.join(BASEDIR, 'statics/')
+#     if not os.path.exists(img_dir):
+#         os.makedirs(img_dir)
+#     content = await file.read()
+#     if file.content_type not in ['image/jpeg', 'image/png']:
+#         raise HTTPException(status_code=406, detail="Only .jpeg or .png  files allowed")
+#     file_name = f'{uuid.uuid4().hex}{ext}'
+#     async with aiofiles.open(os.path.join(img_dir, file_name), mode='wb') as f:
+#         await f.write(content)
 
-    return file_name
+#     return file_name
 
 @app.put("/profile_picture", status_code=status.HTTP_200_OK)
 async def update_profile(image: UploadFile = File(...),db: Session = Depends(get_db),
                          get_current_user: int = Depends(oauth2.get_current_user),):
-    Images = await handle_file_upload(image)
+    # Images = await handle_file_upload(image)
 
     user = db.query(models.User).filter(get_current_user.id == models.User.id).first()
 
     if user == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
                             detail=f"user does not exist") 
-    elif(Images == None):
+    elif(image == None):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
                             detail=f"Empty Field") 
     else:
-        user.profile_pics = Images
+        user.profile_pics = image
         db.commit()
         return {"status":status.HTTP_200_OK,"user_details": user.profile_pics}
         
