@@ -113,18 +113,18 @@ async def login(userL: Annotated[OAuth2PasswordRequestForm, Depends()],db: Sessi
 #     # return {"message":"Signin Successful"}
 
 async def handle_file_upload(file: UploadFile) -> str:
-    _, ext = os.path.splitext(file.filename)
+    # _, ext = os.path.splitext(file.filename)
     img_dir = os.path.join(BASEDIR, 'statics/')
     if not os.path.exists(img_dir):
         os.makedirs(img_dir)
     content = await file.read()
     if file.content_type not in ['image/jpeg', 'image/png']:
         raise HTTPException(status_code=406, detail="Only .jpeg or .png  files allowed")
-    file_name = f'{uuid.uuid4().hex}{ext}'
-    async with aiofiles.open(os.path.join(img_dir, file_name), mode='wb') as f:
+    # file_name = f'{uuid.uuid4().hex}{ext}'
+    async with aiofiles.open(os.path.join(img_dir), mode='wb') as f:
         await f.write(content)
 
-    return file_name
+    return img_dir
 
 @app.put("/profile_picture", status_code=status.HTTP_200_OK)
 async def update_profile(image: UploadFile = File(...),db: Session = Depends(get_db),
