@@ -23,6 +23,7 @@ def upgrade() -> None:
                     sa.Column('message2', sa.String(), nullable=False),
                     sa.Column('message3', sa.String(), nullable=False),
                     sa.Column('created_at', sa.TIMESTAMP(timezone=True), nullable=True, server_default=sa.text('now()')),
+                    sa.PrimaryKeyConstraint('id'),
                     )
     pass
 
