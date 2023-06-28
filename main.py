@@ -194,7 +194,7 @@ async def predictionhistory(input: schemas.prediction_history,db: Session = Depe
     else:
         query = models.History(preg = input.preg,glu = input.glu,bp = input.glu,skin = input.skin,
                                insulin = input.insulin,bmi = input.bmi,dpf = input.dpf,age = input.age,
-                                  result = input.result   )
+                                  result = input.result)
         db.add(query)
         db.commit()
         db.refresh(query)
