@@ -205,7 +205,10 @@ async def predictionhistory(input: schemas.prediction_history,db: Session = Depe
 @app.get("/predictionhistory", status_code=status.HTTP_200_OK)
 async def get_profiles(db: Session = Depends(get_db),get_current_user: int = Depends(oauth2.get_current_user)):
     db_prediction_history_ =  db.query(models.History).filter(get_current_user.id == models.User.id).first()
-    return db_prediction_history_    
+    if db_prediction_history_:
+        return db_prediction_history_    
+    else:
+        return {"status":status.HTTP_204_NO_CONTENT}
 
 @app.get("/profile", status_code=status.HTTP_200_OK)
 async def get_profiles(db: Session = Depends(get_db),get_current_user: int = Depends(oauth2.get_current_user)):
