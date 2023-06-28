@@ -32,6 +32,7 @@ class History(Base):
     __tablename__ = "history"
     id = Column(Integer, primary_key=True, index=True)
     preg = Column(String, index=True )
+    glu = Column(String, index=True )
     age = Column(String, index=True )
     skin = Column(String, index=True )
     insulin = Column(String, index=True )
