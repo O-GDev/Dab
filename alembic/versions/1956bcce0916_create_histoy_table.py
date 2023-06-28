@@ -30,6 +30,7 @@ def upgrade() -> None:
                     sa.Column('result', sa.String(), nullable=False),
                     sa.Column('created_at', sa.TIMESTAMP(timezone=True), nullable=True, server_default=sa.text('now()')),
                     sa.PrimaryKeyConstraint('id'),
+                    sa.UniqueConstraint('id')
                     )
     pass
 
