@@ -183,7 +183,7 @@ async def Feedback(feed_back: schemas.Feedbacks,db: Session = Depends(get_db),ge
 async def predict(input: schemas.model_input,get_current_user: int = Depends(oauth2.get_current_user)):
     user_data = [[input.preg, input.glu, input.bp, input.skin, input.insulin, input.bmi, input.dpf, input.age]]  
     prediction = await PredictDiabetesHandle(user_data)
-    return  {"message": prediction}
+    return  {"message": prediction,"status":status.HTTP_200_OK}
 
 @app.post('/predictionhistory')
 async def predictionhistory(input: schemas.prediction_history,db: Session = Depends(get_db),get_current_user: int = Depends(oauth2.get_current_user)):
