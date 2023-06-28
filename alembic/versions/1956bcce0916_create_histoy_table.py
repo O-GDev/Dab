@@ -21,6 +21,7 @@ def upgrade() -> None:
                     sa.Column('id', sa.Integer(), nullable=False, ),
                     sa.Column('preg', sa.String(), nullable=False),
                     sa.Column('glu', sa.String(), nullable=False),
+                    sa.Column('bp', sa.String(), nullable=False),
                     sa.Column('age', sa.String(), nullable=False),
                     sa.Column('skin', sa.String(), nullable=False),
                     sa.Column('insulin', sa.String(), nullable=False),

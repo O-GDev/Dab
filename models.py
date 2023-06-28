@@ -34,6 +34,7 @@ class History(Base):
     preg = Column(String, index=True )
     glu = Column(String, index=True )
     age = Column(String, index=True )
+    bp = Column(String, index=True )
     skin = Column(String, index=True )
     insulin = Column(String, index=True )
     bmi = Column(String, index=True )
