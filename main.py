@@ -198,7 +198,7 @@ async def predictionhistory(input: schemas.prediction_history,db: Session = Depe
         db.add(query)
         db.commit()
         db.refresh(query)
-        return Response(status_code=status.HTTP_200_OK)
+        return {"status":status.HTTP_200_OK}
 
 
 
