@@ -44,7 +44,6 @@ class UserResponse(BaseModel):
         orm_mode = True  
 
 class Feedbacks(BaseModel):
-    email: str
     message1: str
     message2: str
     message3: str
